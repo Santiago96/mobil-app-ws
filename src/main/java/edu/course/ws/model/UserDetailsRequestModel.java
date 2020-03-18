@@ -1,10 +1,13 @@
 package edu.course.ws.model;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 @Builder
 @Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDetailsRequestModel {
 	
 	private String firstName;
