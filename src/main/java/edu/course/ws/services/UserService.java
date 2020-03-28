@@ -1,5 +1,6 @@
 package edu.course.ws.services;
 
+import edu.course.ws.dto.AddressDTO;
 import edu.course.ws.dto.UserDto;
 import edu.course.ws.model.rest.UserRest;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,7 +23,5 @@ public interface UserService extends UserDetailsService {
     UserDto getUserByUserId(String userID);
 
     List<UserDto> getAllUsers(int page, int limit);
-
-
 
 }

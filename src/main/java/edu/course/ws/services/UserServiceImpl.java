@@ -1,9 +1,13 @@
 package edu.course.ws.services;
 
 import edu.course.ws.Utilities.Util;
+import edu.course.ws.dto.AddressDTO;
 import edu.course.ws.dto.UserDto;
+import edu.course.ws.entities.AddressEntity;
 import edu.course.ws.entities.UserEntity;
+import edu.course.ws.repositories.AddressRepository;
 import edu.course.ws.repositories.UserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,22 +28,29 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
+
     @Autowired
     Util util;
+
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public UserDto createUser(UserDto userDto) {
-        UserEntity userEntity = new UserEntity();
-        BeanUtils.copyProperties(userDto, userEntity);
+        ModelMapper modelMapper = new ModelMapper();
+        UserEntity userEntity = modelMapper.map(userDto, UserEntity.class);
+
         userEntity.setUserId(util.generateUserId(30));
         userEntity.setEncryptedPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
         userEntity.setEmailVerificationStatus(false);
-        UserEntity storedUserDetails = userRepository.save(userEntity);
-        UserDto newUserDto = new UserDto();
 
-        BeanUtils.copyProperties(storedUserDetails, newUserDto);
+        userEntity.getAddresses().forEach(addressEntity -> {
+            addressEntity.setAddressId(util.generateAddressId(20));
+            addressEntity.setUserDTO(userEntity); }
+        );
+
+        UserEntity storedUserDetails = userRepository.save(userEntity);
+        UserDto newUserDto = modelMapper.map(storedUserDetails, UserDto.class);
 
         return newUserDto;
     }

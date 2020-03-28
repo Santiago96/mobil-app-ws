@@ -2,6 +2,8 @@ package edu.course.ws.model;
 
 import lombok.*;
 
+import java.util.List;
+
 @Builder
 @Data
 @Getter
@@ -14,5 +16,6 @@ public class UserDetailsRequestModel {
 	private String lastName;
 	private String email;
 	private String password;
+	private List<AddressRequestModel> addresses;
 
 }

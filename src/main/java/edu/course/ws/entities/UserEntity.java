@@ -10,11 +10,11 @@ import lombok.AllArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
-@Builder
+
 @Getter
 @Setter
-@Data
 @Entity(name = "user")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,6 +33,10 @@ public class UserEntity implements Serializable {
     private String email;
     @Column(nullable = false)
     private String encryptedPassword;
+
+    @OneToMany(mappedBy = "userDTO", cascade = CascadeType.ALL)
+    private List<AddressEntity> addresses;
+
     private String emailVerificationToken;
     private Boolean emailVerificationStatus;
 

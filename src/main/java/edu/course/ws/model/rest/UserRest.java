@@ -1,13 +1,12 @@
 package edu.course.ws.model.rest;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@Builder
+import java.util.List;
+
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserRest {
@@ -16,5 +15,8 @@ public class UserRest {
     private String firstName;
     private String lastName;
     private String email;
+
+    private List<AddressRest> addresses;
+
 
 }
