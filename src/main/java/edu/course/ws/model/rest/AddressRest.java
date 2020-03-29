@@ -1,17 +1,17 @@
 package edu.course.ws.model.rest;
 
-import edu.course.ws.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.hateoas.ResourceSupport;
 
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddressRest {
+public class AddressRest extends ResourceSupport {
 
     private String addressId;
     private String country;
